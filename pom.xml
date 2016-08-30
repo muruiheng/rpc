@@ -1,0 +1,183 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>itbuilder.rpc</groupId>
+	<artifactId>rpc</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
+	<description>rpc project</description>
+	<!-- -->
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>Internal Releases</name>
+			<url>http://123.56.10.127:8081/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>snapshots</id>
+			<name>techstar Snapshots Repository</name>
+			<url>http://123.56.10.127:8081/repository/maven-snapshots/</url>
+		</repository>
+	</distributionManagement>
+	 
+	<modules>
+		<module>rpc-server</module>
+		<module>rpc-client</module>
+		<module>rpc-common</module>
+		<module>rpc-web</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<version>2.5.1</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<inherited>true</inherited>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<warName>rpc-simple</warName>
+					<outputDirectory>${project.basedir}/../target</outputDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.0</version>
+		        <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resoces</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+	<properties>
+		<spring.version>4.2.3.RELEASE</spring.version>
+		<slf4j.version>1.7.7</slf4j.version>
+		<netty.version>4.0.24.Final</netty.version>
+		<protostuff.version>1.0.8</protostuff.version>
+		<zookeeper.version>3.4.8</zookeeper.version>
+		<commons-collections4.version>4.0</commons-collections4.version>
+		<objenesis.version>2.1</objenesis.version>
+		<cglib.version>3.1</cglib.version>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>jdk-1.8</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<jdk>1.8</jdk>
+			</activation>
+			<properties>
+				<maven.compiler.source>1.8</maven.compiler.source>
+				<maven.compiler.target>1.8</maven.compiler.target>
+				<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+			</properties>
+		</profile>
+	</profiles>
+	<dependencies>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- SLF4J -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Netty -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+
+		<!-- Protostuff -->
+		<dependency>
+			<groupId>com.dyuproject.protostuff</groupId>
+			<artifactId>protostuff-core</artifactId>
+			<version>${protostuff.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.dyuproject.protostuff</groupId>
+			<artifactId>protostuff-runtime</artifactId>
+			<version>${protostuff.version}</version>
+		</dependency>
+
+		<!-- ZooKeeper -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>${zookeeper.version}</version>
+		</dependency>
+		<!-- Apache Commons Collections -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${commons-collections4.version}</version>
+		</dependency>
+
+		<!-- Objenesis -->
+		<dependency>
+			<groupId>org.objenesis</groupId>
+			<artifactId>objenesis</artifactId>
+			<version>${objenesis.version}</version>
+		</dependency>
+
+		<!-- CGLib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>${cglib.version}</version>
+		</dependency>
+	</dependencies>
+</project>

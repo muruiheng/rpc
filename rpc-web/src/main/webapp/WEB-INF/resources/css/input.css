@@ -1,0 +1,25 @@
+.input-word-1{
+	display:block;
+	float:right;
+	/* margin-top: 9px; */
+	margin-right: 20px;
+	padding-right: 50px;
+	height: 29px;  /*高*/
+}
+.input-150{
+	display: block;
+	float: left;
+	width: 150px;
+	 border: 1px solid #999; 
+}
+
+.input-473{
+	display: block;
+	float: left;
+	width: 473px;
+	border: 1px solid #999;
+}
+.remind-mess{
+	margin-top: 20px;
+	margin-left: 10px !important;
+}

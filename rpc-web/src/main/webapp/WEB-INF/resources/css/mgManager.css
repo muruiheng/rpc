@@ -1,0 +1,30 @@
+*{
+	margin:0;
+	padding:0;
+}
+.mg{
+	width: 900px;
+}
+.mg-1{
+	margin-left: 180px;
+	margin-top:16px
+
+}
+.mg-inner{
+	
+	width: 800px;
+	
+	margin-top: 20px;
+	margin-left: 20px;
+
+}
+.mg-top{
+	height: 70px;
+	border-bottom:1px solid #333;
+	padding-top:30px;
+}
+
+.mg-inner{
+	float:left;
+}
+

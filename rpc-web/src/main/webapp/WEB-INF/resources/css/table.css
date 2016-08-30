@@ -1,0 +1,40 @@
+/*表格1*/
+table{
+	max-width: 1000px; /*表格总体宽度*/
+	border: 1px solid #cdcdcd;	/*表格的外边框（粗细程度、实线、颜色）*/
+	margin:auto;  /*table整体居中*/
+	border-collapse: collapse; 	/*此属性不可删除*/
+	font-family: "宋体";  /*字体*/
+	
+
+}
+.table-2{
+	float:left;
+	margin-left:10px;
+	margin-top:30px;
+}
+tr{
+	overflow: hidden;  /*此属性不要删除*/
+	height: 30px;    /*单元格的高度*/
+
+}
+td a{
+	text-decoration: none;
+
+}
+th{
+	background-color: #f3f3f3;   /*表头的背景色*/
+	height: 40px;    /*单元格表头的高度*/
+	padding-left: 10px;
+	padding-right: 10px;
+}
+td{
+	 /*width: 228px;  单元格的宽度 */
+	text-align: center !important;  /*单元格文字居中显示 left（左对齐）right（右对齐）*/
+	font-size: 12px;  	/*单元格的字体大小*/
+	color:#4b3d46;		/*单元格的字体颜色*/
+	
+}
+td,th{
+	border: 1px solid #cdcdcd;	/*单元格、表头的边框（粗细程度、实线、颜色）*/
+}

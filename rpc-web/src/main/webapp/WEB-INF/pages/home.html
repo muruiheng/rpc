@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>恒泰能联</title>
+	<link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+	<script type="text/javascript" src="./js/common/global.js"></script>
+	<script type="text/javascript" src="./js/common/dc.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nu15yhAsZzIoKqvIKLGzrGxsPRjsf5Ub"></script>
+	<style>
+		.Battery{
+			height: 200px;
+			width: 100px;
+			border:1px solid #000;
+			position: relative;
+			transform:rotate(7deg);
+			-ms-transform:rotate(180deg); 	/* IE 9 */
+			-moz-transform:rotate(180deg); 	/* Firefox */
+			-webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+			-o-transform:rotate(180deg); 
+		}
+		.line{
+			width: 90px;
+			height: 10px;
+			background-color: blue;
+			border-radius: 10px;
+			margin: auto;
+			margin-top: 5px;
+			margin-bottom: 5px;
+		}
+		.value{
+			position: fixed;
+			top:10px;
+			left: 40px;
+			text-align: center;
+		}
+		.dc{
+			position: relative;
+		}
+	</style>
+</head>
+<body ng-app="homeApp" ng-controller="homeController">
+<nav class="navbar navbar-default" style="position:fixed;top:0px;width:100%; z-index:999;">
+  <div class="container-fluid navbar" >
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <!-- logo图片 -->
+      <a class=" navbar-brand" href="http://www.techstar.com.cn/" target=view_blank"> 
+      			<img class="logo" src="./img/logo.png" alt="恒泰能联">
+           </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"  >
+      <ul class="nav navbar-nav">
+      
+       <!--  <li><a class="item" href="http://www.techstar.com.cn/" target=view_blank>恒泰能联</a></li> -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          	控制台 <span class="caret"></span>
+          	<!-- <img class="" src="./img/control.png" alt="恒泰能联"> -->
+          	
+          	<!-- 	控制台 <span class="caret"></span> -->
+          		
+          </a>
+          <ul class="dropdown-menu" ng-model="sysList">
+          	<li ng-repeat="sys in sysList" ><a href="{{sys.sysUrl}}">{{sys.sysName}}</a></li>
+          </ul>
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right" >
+       <!--  <li><a class="item" href="http://www.techstar.com.cn/" target=view_blank>北京恒泰实达科技股份有限公司</a></li> -->
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          		<img src="./img/phone.png" alt="移动用户端">
+          		移动客户端
+          		<!--  <span class="caret"></span> -->
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          		<img src="./img/help.png" alt="帮助与文档">
+          		帮助与文档
+          		
+          		</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">新版FAQ</a></li>
+            <li><a href="#">帮助与文档</a></li>
+            <li><a href="#">论坛</a></li>
+            
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          		<img src="./img/person.png" alt="个人中心">
+          		{{currentUserName?currentUserName:"个人中心"}}
+          		</a>
+          <ul class="dropdown-menu">
+            <li><a href="../logout">退出</a></li>
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container-fluid" >
+	<div class="row clearfix" >
+		<div class="col-md-2 column" style="padding-left:0px">
+			<div class="accordion" id="accordion-636066" style="width:180px;position:fixed;top:54px;bottom:0px;float:left;">
+				<div class="accordion-group">
+					<div class="sidebar icon-left">
+						<div  >
+							<img src="./img/suo.png" alt="缩藏图标">
+							<!-- <i class="icon-left icon iconfont">&#xe613;</i> -->
+						</div>
+						
+						<!-- <i class="icon-right icon iconfont">&#xe613;</i> -->
+					</div>
+					<div class="sidebar icon-right" >
+						
+						<div class="icon-right" >
+							<img src="./img/suo.png" alt="缩藏图标">
+							<!-- <i class="icon-left icon iconfont">&#xe613;</i> -->
+						</div>
+						<!-- <i class="icon-right icon iconfont">&#xe613;</i> -->
+					</div>
+					<div class="accordion-heading" style="padding-left:10px; background-color:#000;" ng-repeat="sys in sysList">
+						<a   class="accordion-toggle" data-parent="#accordion-636066" data-toggle="collapse" href="#accordion-element-89280">
+							<img class="little-pic"  src="./img/user2.png" alt="用户中心">
+							<span  class="little-font accordion-toggleuser" ><a href="{{sys.sysUrl}}" ng-click="getMenus(sys)" style="color:#fff" >{{sys.sysName}}</a></span>
+						</a>
+						<div class="accordion-body collapse in" id="accordion-element-89280" >
+<!-- 							<div class="line-circle" style="float:left;margin-left:10px;">
+								<img style="margin-left:-2px;display:block;width:15px;"  class="little-pic-1" src="./img/sanjiao.png" alt="三角" >
+								<div class="line1" ></div>
+								<div class="circle"></div>
+								<div class="line2" ></div>
+							</div> -->
+							<div class="accordion-inner accordion-inner-11 accordion-inner-112" ng-show="sysTog" ng-repeat="menu in sys.menuList" ng-class="{selected_menu: $index==selectedMenu}" ng-click="changeClass($index)">
+								<a href="#{{menu.itemUrlId}}">
+									<img  class="little-pic-1" src="./img/user2.png" alt="{{menu.itemName}}">
+									<span class="litle-font litle-font-1" >{{menu.itemName}}</span>
+									<p class="blue-checked blue-checked-11"></p>
+								</a>
+							</div>
+<!-- 							<div class="line-circle" style="float:left;margin-left:10px;">
+								<div class="line1"></div>
+								<div class="circle"></div>
+								<div class="line2"></div>
+							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-10 column"style="z-index:0">
+		    <!-- 内容区域 -->
+			<div align="center" ng-view>
+		       </div>
+		</div>
+	</div>
+</div>
+
+	<script>
+	$(".icon-right").click(function(){
+		$(".icon-right").css("display","none");
+		$(".icon-left").css("display","block");
+		$(".litle-font").css("display","none");
+		$(".accordion-inner ").css("margin-left","-15px");
+		$(".accordion-toggleuser").css("display","none");
+		$(".line-circle").css("display","none");
+		$(".accordion").css("width","50px");
+		$(".column1").css("margin-left","-115px"); 
+		
+		
+
+	});
+
+	$(".icon-left").click(function(){
+		$(".icon-left").css("display","none");
+		$(".icon-right").css("display","block");
+		$(".litle-font").css("display","block");
+		$(".accordion-inner ").css("margin-left","0px");
+		$(".accordion-toggleuser").css("display","block");
+		$(".line-circle").css("display","block");
+		$(".accordion").css("width","180px");
+	})
+	$(".accordion-inner").click(function(){
+		$(this).siblings().removeClass("accordion-inner-hover");
+		$(this).addClass("accordion-inner-hover");
+	})
+	/* $(".accordion-inner-11 a").click(function(){
+		$(this).css("color"," #148dcb");
+		$(this).parent().siblings().children("a").css("color","#fff");
+		$(".accordion-inner-12 a").css("color"," #fff");
+	}) */
+	$(".accordion-inner-12 a").click(function(){
+		$(this).css("color"," #148dcb");
+		$(this).parent().siblings().children("a").css("color","#fff");
+		$(".accordion-inner-11 a").css("color"," #fff");
+	})
+	
+	/*蓝线  */
+	/* $(".accordion-inner-112").click(function(){
+		$(".blue-checked-11").css("display","block");
+	}) */
+</script>
+<script type="text/javascript" src="./js/home.js"></script>
+<script type="text/javascript" src="./js/mgManager.js"></script>
+<script type="text/javascript" src="./js/eqManager.js"></script>
+<script type="text/javascript" src="./js/energyManager.js"></script>
+<script type="text/javascript" src="./js/powerManager.js"></script>
+<script type="text/javascript" src="./js/mgMiontManager.js"></script>
+<script type="text/javascript" src="./js/energyMonitor.js"></script>
+<script type="text/javascript" src="./js/benefitEval.js"></script>
+<script type="text/javascript" src="./js/common/menu.js"></script>
+<script type="text/javascript" src="./js/standardManager.js"></script>
+ </body>
+</html>

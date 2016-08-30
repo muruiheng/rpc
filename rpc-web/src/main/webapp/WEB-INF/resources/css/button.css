@@ -1,0 +1,63 @@
+.right-center{
+	width:160px;
+	float:left;
+}
+.newAdd{
+	display: block;
+	height: 29px;  /*高*/
+	width: 59px;  /*宽*/
+	background-color: #d9dee4;   /*背景色（非纯蓝色）*/
+	color:#333;   /*字体颜色*/
+	text-decoration: none;  
+	font-size: 12px;  /*字号*/
+	line-height: 29px;   /*垂直居中（此参数与高度一致）*/
+	text-align: center;  /*居中*/
+	border:1px solid #251a4a;  /*边框宽度及颜色*/
+	
+	float:left;
+	margin-right:20px;
+	
+}
+.newAdd:focus {
+    background-color: #546478;
+    border: 1px solid #546478;
+    color: #ffffff;
+}
+.newAdd:hover{
+	background-color: #546478;
+    border: 1px solid #546478;
+    color: #ffffff;
+}
+.newAdd1{
+	margin-left: 10px;
+}
+
+.recharge{
+	display: block;
+	height: 29px;  /*高*/
+	width: 59px;  /*宽*/
+	background-color: #aeaeae;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding-left:5px;
+    padding-right:5px;
+	color:#fff;   /*字体颜色*/
+	text-decoration: none;  
+	font-size: 10px;  /*字号*/
+	line-height: 29px;   /*垂直居中（此参数与高度一致）*/
+	text-align: center;  /*居中*/
+	border:0px solid #251a4a;  /*边框宽度及颜色*/
+	/* margin-bottom: 10px;  使用的时候去掉这句*/
+	float:right;
+	/* margin-top: 10px;  使用的时候去掉这句 */
+}
+.recharge:hover{
+	background-color:#28b5d6;
+}
+.save-1{
+	margin-left: 300px;
+	border: 1px solid #333;
+}
+textarea {
+  resize : none;
+}
