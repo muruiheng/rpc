@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+		
+	<!-- mvc -->
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:*.properties" />
+	<context:component-scan base-package="rpc.web.controller"/>
+	<context:component-scan base-package="com.techstar.*.web.rpc" />
+	
+	<!-- 根据后缀 支持多视图处理器 -->
+		<!-- 根据客户端的不同的请求决定不同的view进行响应, 如 /blog/1.json /blog/1.xml -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		
+		<!-- 设置为useNotAcceptableStatusCode的支持 -->
+		<property name="useNotAcceptableStatusCode" value="true" />
+
+		<!-- 用于开启 /blog/123?format=json 的支持 -->
+		<!-- <property name="favorParameter" value="true" /> -->
+		<!-- 视图解析器 -->
+		<property name="viewResolvers">
+			<list>
+				<!-- jsp解析 -->
+				<ref bean="jspRseolver"/>
+				<ref bean="beanRseolver"/>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- for application/json -->
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+			</list>
+		</property>
+	</bean>
+	<mvc:resources mapping="/views/**" location="/WEB-INF/pages/,/WEB-INF/error/,/WEB-INF/data/,/WEB-INF/resources/" />
+	<!-- 声明视图解析的对象 -->
+	<bean id="beanRseolver" class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+	<bean id="multipartRseolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000" />
+	</bean>
+	<bean id="jspRseolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 输出对象转String支持 -->
+	<bean id="stringConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/plain;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 输出对象转JSON支持 -->
+	<bean id="byteArrayConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+	<bean id="resourceConverter" class="org.springframework.http.converter.ResourceHttpMessageConverter" />
+	<bean id="sourceConverter" class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+	<bean id="xmlAwareFormConverter" class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+	<bean id="jaxb2RootElementConverter" class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+	
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="objectMapper">
+			<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+				<property name="dateFormat">
+					<bean class="java.text.SimpleDateFormat">
+						<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonConverter" />
+				<ref bean="stringConverter" />
+				<ref bean="byteArrayConverter" />
+				<ref bean="resourceConverter" />
+				<ref bean="sourceConverter" />
+				<ref bean="xmlAwareFormConverter" />
+				<ref bean="jaxb2RootElementConverter" />
+			</list>
+		</property>
+	</bean>
+	<!-- URL映射管理器 -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	  	<property name="order" value="0"/>  
+        <property name="useDefaultSuffixPattern" value="true"/> 
+        <!-- 拦截器 -->
+		<property name="interceptors">
+			<list>
+				<!--会话管理的拦截器 -->
+			</list>
+		</property>
+	</bean>
+</beans>

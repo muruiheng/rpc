@@ -1,0 +1,49 @@
+
+ <!--  <div class="row">
+  
+    <div class="col-md-12" >
+      <h3>nodes列表</h3>
+      <table ng-table-dynamic=" tableParams with  cols" class="table table-condensed table-bordered table-hover">
+        <colgroup>
+          <col width="100%" />
+          <col width="0%" />
+        </colgroup>
+        <tr class="ng-table-group" ng-repeat-start="group in $groups">
+          <td colspan="3">
+            <a href="" ng-click="group.$hideRows = !group.$hideRows">
+              <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span>
+              <strong>{{ group.value }}</strong>
+            </a>
+          </td>
+        </tr>
+        <tr ng-hide="group.$hideRows" ng-repeat="user in group.data" ng-repeat-end>
+          <td ng-repeat="col in $columns">{{user[col.field]}}</td>
+        </tr>
+      </table> -->
+      
+<style>
+	.list-ip li:hover{
+		background-color:#ccc;
+	}
+</style> 
+  <div class="row">
+  
+    <div class="col-md-5" >
+      <h3 style="margin-left:50px;margin-top:10px;">RPC服务列表</h3>
+     
+	       <ul class="list-unstyled" ng-repeat=" service in serviceList" style="margin-top:20px; cursor:pointer">
+	       		<div class="panel panel-default" >
+					<li >
+						<a style="font-size:14px;" ng-click="getIp(this,service)" >
+							{{service.node}}
+						</a>
+					</li>
+						<ol id="demo" class="list-ip" ng-show="open" ng-repeat=" ip in service.ipList">
+							<li style="font-size:14px;margin-top:10px;margin-left:30px;">{{ip.service}}</li>
+						</ol>
+				</div>
+	       </ul>
+       </div>
+      </div>
+    </div>
+  </div>

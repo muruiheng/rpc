@@ -39,6 +39,7 @@ public class RpcHandler extends SimpleChannelInboundHandler<RpcRequest> {
 			Object result = handle(request);
 			response.setResult(result);
 		} catch (Throwable t) {
+			LOGGER.error("RpcHandler.channelRead0 failed{0}", request, t);
 			response.setError(t);
 		}
 		ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);

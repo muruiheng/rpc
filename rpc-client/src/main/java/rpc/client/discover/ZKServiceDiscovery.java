@@ -98,11 +98,14 @@ public class ZKServiceDiscovery {
     	String[] keys = key.split("#");
     	String serviceName = keys[1];
     	String address = keys[0];
+    	if (keys.length > 2)
+    		address = address + ":" + keys[2];
     	List<String> dataList = serviceConfig.get(serviceName);
     	if (dataList == null) {
     		dataList = new ArrayList<String>();
     		serviceConfig.put(serviceName, dataList);
     	}
+    	
     	dataList.add(address);
     }
 

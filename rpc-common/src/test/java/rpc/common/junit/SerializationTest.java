@@ -1,7 +1,9 @@
 package rpc.common.junit;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,5 +56,49 @@ public class SerializationTest {
 		
 		RpcRequest unCom_request = SerializationUtil.deserialize(data, RpcRequest.class);
 		System.out.println(unCom_request.toString());
+	}
+	
+	@Test
+	public void testTimeS() {
+		RpcRequest request = new RpcRequest();
+		request.setClassName(SerializationUtil.class.getName());
+		request.setMethodName("getName");
+		Class<?>[] clazzs = {Map.class, List.class, Timestamp.class};
+		request.setParameterTypes(clazzs);
+		Object[] parameters = {new HashMap<>(), new ArrayList<>(), new Timestamp(new Date().getTime())};
+		request.setParameters(parameters);
+		byte[] data = SerializationUtil.serialize(request);
+		RpcRequest unCom_request = SerializationUtil.deserialize(data, RpcRequest.class);
+		for (Object obj:unCom_request.getParameters()) {
+			System.out.println(obj.toString());
+		}
+	}
+	
+	
+//	2017-09-22 10:01:14.302
+//	2017-09-22 10:01:14.302
+	public static class Time{
+		private long time;
+
+		
+		public Time(long time) {
+			super();
+			this.time = time;
+		}
+
+		/**
+		 * @return the time
+		 */
+		public long getTime() {
+			return time;
+		}
+
+		/**
+		 * @param time the time to set
+		 */
+		public void setTime(long time) {
+			this.time = time;
+		}
+		
 	}
 }

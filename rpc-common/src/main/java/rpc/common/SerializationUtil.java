@@ -1,5 +1,6 @@
 package rpc.common;
 
+import java.sql.Timestamp;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -9,6 +10,9 @@ import org.objenesis.ObjenesisStd;
 import com.dyuproject.protostuff.LinkedBuffer;
 import com.dyuproject.protostuff.ProtostuffIOUtil;
 import com.dyuproject.protostuff.Schema;
+import com.dyuproject.protostuff.runtime.DefaultIdStrategy;
+import com.dyuproject.protostuff.runtime.Delegate;
+import com.dyuproject.protostuff.runtime.RuntimeEnv;
 import com.dyuproject.protostuff.runtime.RuntimeSchema;
 
 /**
@@ -19,12 +23,17 @@ import com.dyuproject.protostuff.runtime.RuntimeSchema;
 public class SerializationUtil {
 
 	private static Map<Class<?>, Schema<?>> cachedSchema = new ConcurrentHashMap<>();
-
+	private static final Delegate<Timestamp> TIMESTAMP_DELEGETE = new TimestampDelegete();
+	public static final DefaultIdStrategy ID_STRATEGY = (DefaultIdStrategy) RuntimeEnv.ID_STRATEGY;
+	
     private static Objenesis objenesis = new ObjenesisStd(true);
 
     private SerializationUtil() {
     }
 
+    static {
+    	ID_STRATEGY.registerDelegate(TIMESTAMP_DELEGETE);	
+    }
     @SuppressWarnings("unchecked")
     private static <T> Schema<T> getSchema(Class<T> cls) {
         Schema<T> schema = (Schema<T>) cachedSchema.get(cls);
