@@ -1,73 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext*.xml</param-value>
-  </context-param>
-  <listener>
-    <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-  </listener>
-  <servlet>
-    <servlet-name>springMVC</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <description>Spring MVC Configuration Location</description>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>  
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+						http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext*.xml</param-value>
+	</context-param>
+
+	<!-- 支持MVC 装载子上下文 -->
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<description>Spring MVC Configuration Location</description>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>  
                 classpath:spring-*.xml  
             </param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>springMVC</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
-  
-  	<!-- 用于单点退出，该过滤器用于实现单点登出功能  -->  
-	<listener>  
-		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>  
-	</listener>  
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
 
-	<!-- 该过滤器用于实现单点登出功能 ，放到所有过滤器最前边 -->  
-	<filter>  
-		<filter-name>CAS Single Sign Out Filter</filter-name>  
-		<filter-class>com.techstar.uad.web.filter.authc.UadSingleSignOutFilter</filter-class>  
-	</filter>  
-	<filter-mapping>  
-		<filter-name>CAS Single Sign Out Filter</filter-name>  
-		<url-pattern>/*</url-pattern>  
-	</filter-mapping>  
-  
-  <filter>
-    <filter-name>encode</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>encode</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-  <!-- -->
-  <filter>
-    <filter-name>shiroFilter</filter-name>
-    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    <init-param>
-      <param-name>targetFilterLifecycle</param-name>
-      <param-value>true</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>shiroFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-   
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  <error-page>
+
+	<!-- encode -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<error-page>
 		<error-code>404</error-code>
 		<location>/views/404.html</location>
 	</error-page>

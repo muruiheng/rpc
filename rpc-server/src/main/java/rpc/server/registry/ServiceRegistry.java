@@ -8,6 +8,12 @@ import java.util.Set;
  */
 public interface ServiceRegistry {
 
-	public void register(String data, Set<String> serviceName);
+	/**
+	 * 
+	 * @param data 服务地址
+	 * @param serviceName 服务名称
+	 * @param dataPath 服务注册地址
+	 */
+	public void register(String data, Set<String> serviceName, String dataPath);
 
 }

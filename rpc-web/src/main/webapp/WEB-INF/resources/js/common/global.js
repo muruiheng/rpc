@@ -1,4 +1,4 @@
-var applicationContext = "/mgctrl";
+var applicationContext = "/rpc-web";
 libpath = applicationContext + "/views/js/";
 
 /**
@@ -19,20 +19,14 @@ var jslib = {
 	    loadJsAndCss(libpath + "angular/ez-confirm-tpl.js", "js");
 	    loadJsAndCss(libpath + "angular/ez-focus.min.js", "js"); 
  		loadJsAndCss(libpath + "angular/message.js", "js");
- 		loadJsAndCss(libpath + "angular/angular-ui-tree.min.js", "js");
- 		loadJsAndCss(libpath + "bootstrap/bootstrap.min.js", "js");
- 		loadJsAndCss(libpath + "datepicker/WdatePicker.js", "js");
- 		loadJsAndCss(libpath + "highcharts/highcharts.js", "js"); 	
- 		loadJsAndCss(libpath + "highcharts/exporting.js", "js"); 	
- 		loadJsAndCss(libpath + "highcharts/highcharts-more.js", "js"); 		
- 		loadJsAndCss(libpath + "highcharts/solid-gauge.js", "js"); 	
- 		loadJsAndCss(libpath + "highcharts/highcharts-3d.js", "js"); 
  		loadJsAndCss(libpath + "angular/angular-cookies.min.js", "js");
- 		loadJsAndCss(libpath + "ng-tags-input/ng-tags-input.min.js", "js");
- 		loadJsAndCss(libpath + "angular/angular-touch.min.js", "js");
- 		loadJsAndCss(libpath + "angucomplete/angucomplete.js", "js");
+ 	//s	loadJsAndCss(libpath + "angular/angular-cookies.js", "js");
 
 
+ 		loadJsAndCss(libpath + "angular/angular-ui-tree.min.js", "js");
+ 	//	loadJsAndCss(libpath + "angular/angular-ui-tree.js", "js");
+ 		loadJsAndCss(libpath + "bootstrap/bootstrap.min.js", "js");
+ 		loadJsAndCss(libpath + "ng-table.js", "js");
 	},
 	loadBootstrap : function() {
 		loadJsAndCss(libpath + "bootstrap/css/bootstrap.min.css", "css");
@@ -47,20 +41,16 @@ var jslib = {
 		loadJsAndCss(libpath + "../css/ez-confirm.min.css", "css");
 		loadJsAndCss(libpath + "../css/angular-ui-tree.min.css", "css");
 		loadJsAndCss(libpath + "../css/home.css", "css");
-		loadJsAndCss(libpath + "../css/button.css", "css");
-		loadJsAndCss(libpath + "../css/input.css", "css");
+		loadJsAndCss(libpath + "../css/demo.css", "css");
+		loadJsAndCss(libpath + "../css/delete.css", "css");
 		loadJsAndCss(libpath + "../css/left-menu.css", "css");
-		loadJsAndCss(libpath + "../css/mgManager.css", "css");
-		loadJsAndCss(libpath + "../css/table.css", "css");
 		loadJsAndCss(libpath + "../css/new.css", "css");
-		loadJsAndCss(libpath + "../css/pic.css", "css");
-		loadJsAndCss(libpath + "ng-tags-input/css/ng-tags-input.bootstrap.min.css", "css");
-		loadJsAndCss(libpath + "ng-tags-input/css/ng-tags-input.min.css", "css");
-		loadJsAndCss(libpath + "angucomplete/css/angucomplete.css", "css");
+		loadJsAndCss(libpath + "../css/ng-table.min.css", "css");
+
 	}
 	
 };
-
+new
 /**
  * 页面初始化自动加载的方法
  */
@@ -118,7 +108,7 @@ function loadJsAndCss(filename, filetype) {
 post = function($http, url, data, success, failed) {
 	$http.post(url, data).success(function(response) {
 		if (response.relogin) {
-			alert("请重新登录");
+			window.location.href=response.values.loginUrl;
 		} else if (response.success) {
 			success(response.values, response.message);
 		} else {
@@ -140,7 +130,7 @@ post = function($http, url, data, success, failed) {
 get = function($http, url, data, success, failed) {
 	$http.get(url, data).success(function(response) {
 		if (response.relogin) {
-			alert("请重新登录");
+			window.location.href=response.values.loginUrl;
 		} else if (response.success) {
 			success(response.values, response.message);
 		} else {

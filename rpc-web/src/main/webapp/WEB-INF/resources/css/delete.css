@@ -1,0 +1,175 @@
+*{
+	margin:0;
+	padding:0;
+}
+.right-box-con{
+	position: relative;
+}
+.right-del{
+    background-color: #e1e1e1;
+    float: right;
+    height: 615px;
+    margin-left: 20px !important;
+    margin-top: 20px;
+    overflow: hidden;
+    width: 87%;
+}
+.right-del-top{
+	width: 850px;
+	margin:auto;
+	padding-top: 15px;
+	padding-bottom: 45px;
+	border-bottom:1px solid #bdbdbe;
+}
+.btn-new{
+	height: 30px;
+	width: 60px;
+	/*line-height: 50px;*/
+	color:#fff;
+	background-color: #9a9a9a;
+	float: left;
+	margin-left: 100px;
+	border: 0px;
+}
+.btn-new-123{
+	
+	margin-bottom:10px;
+	
+}
+.search{
+	width: 200px;
+	height: 20px;
+	background-color: #fff;
+	border-radius: 10px;
+	float: right;
+	margin-top: 6px;
+	margin-right: 30px;
+}
+.search .radio{
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 2px solid #808285;
+	float: left;
+	margin-left: 5px;
+	margin-top: 2px;
+}
+.little-radio{
+	width: 6px;
+	height:6px;
+	border-radius: 50%;
+	border: 1px solid #808285;
+	margin-top: 2px;
+	margin-left: 2px;
+}
+.in-put{
+	float: right;
+	border:0px none;
+	width: 175px;
+	height: 20px;
+	border-radius: 10px;
+	font-size: 12px;
+
+}
+.in-put:focus{
+	border:0px;
+}
+.large{
+	display: block;
+	float: right;
+	margin-right: -225px;
+	margin-top: 5px;
+}
+
+.right-del-bottom{
+	width: 850px;
+	margin:auto;
+}
+.company{
+	padding-top: 10px;
+	float: left;
+	/*width: 210px;*/
+	/*height: 30px;*/
+	margin-top: 20px;
+	margin-left: 10px;
+	background-color: #fff;
+	padding-bottom: 110px;
+	
+	border: 1px solid #bababa;
+
+}
+.company li{
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 12px;
+	padding-left: 10px;
+	color:#7d7d7d;
+	padding-right: 20px;
+}
+.company li:hover{
+	background-color: #e1e1e1;
+	cursor:pointer;
+}
+.child-menue li{
+	padding-left: 40px;
+}
+.tri2{
+	font-size: 12px;
+}
+
+
+.source-content{
+	float: left;
+	margin-left: 55px;
+	margin-top: 30px;
+}
+.source span{
+	display: block;
+	float: left;
+	width: 100px;
+	text-align: right;
+	/*margin-left: 40px;*/
+	margin-right: 20px;
+	font-size: 12px;
+	margin-top: 4px;
+
+}
+.source{
+	margin-top: 20px;
+	font-size: 12px;
+}
+.source .source-input{
+	height: 20px;
+	width: 200px;
+	border: 1px solid #a4a4a4;
+}
+
+.source .type-opt{
+	height: 20px;
+	width: 200px;
+	border:1px dashed #bdbdbe;
+	margin-left: 120px;	
+	padding-top: 5px;
+
+}
+.p-type{
+	float: left;
+	width: 100px;
+	text-align: right;
+	margin-top: 3px;
+}
+
+.type-opt input{
+	margin-left: 23px;
+}
+.left-tri{
+	display: block;
+	position: absolute;
+	top: 200px;
+	left: 8px;
+	color:#e1e1e1;
+	
+}
+.btn-new:hover{
+	background-color: #3eabf7;
+}

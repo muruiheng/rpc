@@ -19,7 +19,13 @@ import rpc.common.RpcEncoder;
 import rpc.common.RpcRequest;
 import rpc.common.RpcResponse;
 
-public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
+
+/**
+ * 发起TCP请求的客户端
+ * @author mrh
+ *
+ */
+public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> implements Client{
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RpcClient.class);
 
@@ -38,7 +44,8 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 	@Override
 	public void channelRead0(ChannelHandlerContext ctx, RpcResponse response) throws Exception {
 		this.response = response;
-		LOGGER.info("RpcClient..3...channelRead0");
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("RpcClient..3...channelRead0");
 		unLock();
 	}
 
@@ -46,6 +53,7 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		LOGGER.error("client caught exception", cause);
 		ctx.close();
+		unLock();
 	}
 
 	/**
@@ -59,7 +67,8 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 		EventLoopGroup group = new NioEventLoopGroup();
 		try {
 			this.response = null;
-			LOGGER.info("RpcClient...1..send");
+			if (LOGGER.isDebugEnabled())
+				LOGGER.debug("RpcClient...1..send");
 			Bootstrap bootstrap = new Bootstrap();
 			bootstrap.group(group).channel(NioSocketChannel.class).handler(new ChannelInitializer<SocketChannel>() {
 				@Override
@@ -79,7 +88,8 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 
 			if (response != null) {
 				future.channel().closeFuture().sync();
-				LOGGER.info("RpcClient..4...end");
+				if (LOGGER.isDebugEnabled())
+					LOGGER.debug("RpcClient..4...end");
 			}
 			return response;
 		} finally {
@@ -95,7 +105,8 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 	private void lock() throws InterruptedException {
 		if (response == null) {
 			synchronized (obj) {
-				LOGGER.info("RpcClient..2...wait");
+				if (LOGGER.isDebugEnabled())
+					LOGGER.debug("RpcClient..2...wait");
 				if (response == null) {
 					obj.wait();// 等待线程
 				}

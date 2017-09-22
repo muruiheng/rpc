@@ -1,9 +1,7 @@
 package rpc.server;
 
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.net.ServerSocket;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,22 +22,25 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import rpc.common.Constant;
+import rpc.common.InetAddressUtil;
 import rpc.common.RpcDecoder;
 import rpc.common.RpcEncoder;
 import rpc.common.RpcRequest;
 import rpc.common.RpcResponse;
 import rpc.common.annotation.RpcService;
-import rpc.server.exception.RpcInitialException;
 import rpc.server.handler.RpcHandler;
 import rpc.server.registry.ServiceRegistry;
 
 /**
  * rpc server domain <br/>
  * this class to start rpc server and excute register method 
+ * {@ExtRpcServer} 改为使用ExtRpcServer 进行统一的启动， 新的启动方式默认提供端口号，不需要用户再自行指定端口号；
  * 2016-3-6
  * @author mrh
  *
  */
+@Deprecated 
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RpcServer.class);
@@ -52,13 +53,13 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
 	
 	public RpcServer() {
-		this.serverAddress = getHost();
+		this.serverAddress = InetAddressUtil.getIpAddress();
 		this.port = getPort();
 		LOGGER.debug("");
 	}
 
 	public RpcServer(ServiceRegistry serviceRegistry, int port) {
-		this.serverAddress = getHost();
+		this.serverAddress = InetAddressUtil.getIpAddress();
 		//读取空闲的可用端口
 		this.port = port;
 		this.serviceRegistry = serviceRegistry;
@@ -71,14 +72,6 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 		this.serviceRegistry = serviceRegistry;
 	}
 
-	private static String getHost() {
-		try {
-			Inet4Address ia = (Inet4Address) Inet4Address.getLocalHost();
-			return ia.getHostAddress();
-		} catch (UnknownHostException e) {
-			throw new RpcInitialException("Rpc 服务启动失败!", e);
-		}
-	}
 	private static int getPort() {
 		for (int i = 9000; i< 10000; i++) {
 			try {
@@ -141,7 +134,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
 				if (serviceRegistry != null) {
 					LOGGER.info("RpcServer.afterPropertiesSet() -- to register rpc service: {}:{}! ", serverAddress, port);
-					serviceRegistry.register(serverAddress + ":" + port, handlerMap.keySet()); // register service
+					serviceRegistry.register(serverAddress + ":" + port, handlerMap.keySet(), Constant.ZK_DATA_PATH); // register service
 				}
 
 				future.channel().closeFuture().sync();

@@ -1,0 +1,27 @@
+<style>
+	.list-ip li:hover{
+		background-color:#ccc;
+	}
+</style> 
+  <div class="row">
+  
+    <div class="col-md-5" >
+      <h3 style="margin-left:50px;margin-top:10px;">应用节点列表</h3>
+        <div class="panel-default">
+	       <ul class="list-unstyled" ng-repeat=" service in serviceList" style="margin-top:20px; cursor:pointer">
+	       		<div class="panel panel-default">
+					<li>
+						<a ng-click="getIp(this,service)" style="font-size:15px;">
+							{{service.service}}
+						</a>
+					</li>
+						<ul  class="list-unstyled list-ip"  ng-show="open" ng-repeat=" ip in service.ipList">
+							<li  style="font-size:14px;margin-top:10px;margin-left:30px;">{{ip.node}}</li>
+						</ul>
+				</div>
+	       </ul>
+       </div>
+      </div>
+
+	</div>
+  </div>

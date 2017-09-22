@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import rpc.common.Constant;
+import rpc.common.RpcProtocol;
 
 /**
  * registry rpc service in zk 
@@ -28,23 +29,54 @@ public class ZkServiceRegistryImpl implements ServiceRegistry{
 	private CountDownLatch latch = new CountDownLatch(1);
 
 	private String registryAddress;
+	
+	 private String data;
+	 private Set<String> serviceNames;
+	 private String dataPath;
 
 	public ZkServiceRegistryImpl(String registryAddress) {
 		this.registryAddress = registryAddress;
 	}
 
-	public void register(String data, Set<String> serviceNames) {
+	public void register(String data, Set<String> serviceNames, String dataPath) {
+		this.data = data;
+		this.serviceNames = serviceNames;
+		this.dataPath = dataPath;
 		if (data != null) {
+			
 			ZooKeeper zk = connectServer();
 			if (zk != null) {
 				for (String serviceName : serviceNames) {
 					StringBuilder serviceKey = new StringBuilder(data);
 					serviceKey.append("#").append(serviceName);
-					createNode(zk, serviceKey.toString());
+					createNode(zk, serviceKey.toString(), dataPath);
 				}
 			}
+			this.watchNode(zk, data, serviceNames, dataPath);
 		}
 	}
+	
+	/**
+	 * 监听连接状态
+	 * @param zk
+	 * @param data
+	 * @param serviceNames
+	 * @param dataPath
+	 */
+	private void watchNode(final ZooKeeper zk, final String data, final Set<String> serviceNames, final String dataPath) {
+        zk.register(new Watcher() {
+        	 private String local_data = data;
+        	 private Set<String> local_serviceNames = serviceNames;
+        	 private String local_dataPath = dataPath;
+        	 
+            @Override
+            public void process(WatchedEvent event) {
+                if (event.getState() == Event.KeeperState.Disconnected) {
+                	register(local_data, local_serviceNames, local_dataPath);
+                }
+            }
+        });
+    }
 
 	/**
 	 * to connect zookeeper server and countDown all process to wait on;
@@ -64,6 +96,16 @@ public class ZkServiceRegistryImpl implements ServiceRegistry{
 				}
 			});
 			latch.await();
+			zk.register(new Watcher(){
+				@Override
+				public void process(WatchedEvent event) {
+					if (event.getType() == Event.EventType.NodeDeleted) {
+						LOGGER.info("connectServer....Disconnected! try to connect");
+						register(data, serviceNames, dataPath);
+					}
+				}
+				
+			});
 		} catch (IOException e){
 			LOGGER.error("", e);
 		} catch (InterruptedException e) {
@@ -78,9 +120,8 @@ public class ZkServiceRegistryImpl implements ServiceRegistry{
 	 * @param zk
 	 * @param data
 	 */
-	private void createNode(ZooKeeper zk, String data) {
+	private void createNode(ZooKeeper zk, String data, String dataPth) {
 		try {
-			byte[] bytes = data.getBytes();
 			try {
 				Stat exists = zk.exists(Constant.ZK_REGISTRY_PATH, false);
 				if (exists == null) {
@@ -95,13 +136,24 @@ public class ZkServiceRegistryImpl implements ServiceRegistry{
 			}
 			
 			String[] key = data.split("#");
-			StringBuffer pathStr = new StringBuffer(Constant.ZK_DATA_PATH);
+			StringBuffer pathStr = new StringBuffer(dataPth);
 			if (key != null && key.length > 1) {
 				pathStr.append("#").append(key[1]).append("#");
 			}
+			byte[] bytes = null;
+			StringBuffer dataBuf = new StringBuffer(data);
+			if (Constant.ZK_DATA_PATH.equals(dataPth)) {
+				dataBuf.append("#").append(RpcProtocol.TCP.name());
+				
+			}
+			if (Constant.ZK_HTTP_PATH.equals(dataPth)) {
+				dataBuf.append("#").append(RpcProtocol.HTTP.name());
+				
+			}
+			bytes = dataBuf.toString().getBytes();
 			String path = zk.create(pathStr.toString(), bytes, ZooDefs.Ids.OPEN_ACL_UNSAFE,
 					CreateMode.EPHEMERAL_SEQUENTIAL);
-			LOGGER.info("create zookeeper node ({} => {})", path, data);
+			LOGGER.info("create zookeeper node ({} => {})", path, dataBuf.toString());
 		} catch (KeeperException e) {
 			LOGGER.error("createNode failed", e);
 			if(e.code() == Code.NONODE) {

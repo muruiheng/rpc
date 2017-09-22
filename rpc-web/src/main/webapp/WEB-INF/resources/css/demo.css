@@ -1,0 +1,303 @@
+html,p,a,h1,h2,h3,h4,h5,h6,ul,ol,li,span,body,div,img,table,tr,td,form{
+	padding:0;
+	margin:0px;
+	font-family: "微软雅黑";
+}
+/* 三列不等宽，如需改变宽请在table.css中将第13行和第17行的width去掉 */
+.table3{
+	width:100%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table3 th-11,.table3 .first{
+	width:20%; /* 如需等宽请去掉这行 */
+	text-align: center;
+}
+.table3 th-12,.table3 th-13,.table3 .right{
+	width:40%; /* 如需等宽请去掉这行 */
+}
+.table3 td,.table3 th{
+	text-align: center !important;
+}
+.table3 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table3 .td{
+	font-size:12px;
+}
+/* 四列自适应，如需改变宽请改动table.css中第35行和第39行的width */
+.table4{
+	width:90%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table4 th-11,.table4 .first{
+	 /* width:10%;如需不等宽请改动这行 */
+	text-align: center;
+}
+.table4 th-12,.table4 th-13,.table4 th-14,.table4 .right{
+	 /*width:30%; 如需不等宽请改动这行 */
+}
+.table4 td,.table4 th{
+	text-align: center !important;
+}
+.table4 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table4 .td{
+	font-size:12px;
+}
+/* 五列自适应，如需改变宽请改动table.css中第62行和第66行的width */
+.table5{
+	width:90%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table5 th-11,.table5 .first{
+	 /* width:10%;如需不等宽请改动这行 */
+	text-align: center;
+}
+.table5 th-12,.table5 th-13,.table5 th-14,.table5 th-15,.table5 .right{
+	 /*width:30%; 如需不等宽请改动这行 */
+}
+.table5 td,.table5 th{
+	text-align: center !important;
+}
+.table5 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table5 .td{
+	font-size:12px;
+}
+/* 六列自适应，如需改变宽请改动table.css中第86行和第90行的width */
+.table6{
+	width:90%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table6 th-11,.table6 .first{
+	 /* width:10%;如需不等宽请改动这行 */
+	text-align: center;
+}
+.table6 th-12,.table6 th-13,.table6 th-14,.table6 th-15,.table6 th-16,.table6 .right{
+	 /*width:30%; 如需不等宽请改动这行 */
+}
+.table6 td,.table6 th{
+	text-align: center !important;
+}
+.table6 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table6 .td{
+	font-size:12px;
+}
+/* 七列自适应，如需改变宽请改动table.css中第110行和第114行的width */
+.table7{
+	width:90%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table7 th-11,.table7 .first{
+	 /* width:10%;如需不等宽请改动这行 */
+	text-align: center;
+}
+.table7 th-12,.table7 th-13,.table7 th-14,.table7 th-15,.table7 th-16,.table7 th-17,.table7 .right{
+	 /*width:30%; 如需不等宽请改动这行 */
+}
+.table7 td,.table7 th{
+	text-align: center !important;
+}
+.table7 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table7 .td{
+	font-size:12px;
+}
+/* 八列自适应，如需改变宽请改动table.css中第134行和第138行的width */
+.table8{
+	width:90%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table8 th-11,.table8 .first{
+	 /* width:10%;如需不等宽请改动这行 */
+	text-align: center;
+}
+.table8 th-12,.table8 th-13,.table8 th-14,.table8 th-15,.table8 th-16,.table8 th-17,.table8 th-18,.table8 .right{
+	 /*width:30%; 如需不等宽请改动这行 */
+}
+.table8 td,.table8 th{
+	text-align: center !important;
+}
+.table8 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table8 .td{
+	font-size:12px;
+}
+/* 九列自适应，如需改变宽请改动table.css中第158行和第162行的width */
+.table9{
+	width:90%; /* 根据需要改变表格的宽度 */
+	border-radius: 0px !important;
+	margin:auto;
+	margin-top: 10px; /* 如需改变表格与上面的距离请改变10px */
+}
+.table9 th-11,.table9 .first{
+	 /* width:10%;如需不等宽请改动这行 */
+	text-align: center;
+}
+.table9 th-12,.table9 th-13,.table9 th-14,.table9 th-15,.table9 th-16,.table9 th-17,.table9 th-18,.table9 .right{
+	 /*width:30%; 如需不等宽请改动这行 */
+}
+.table9 td,.table9 th{
+	text-align: center !important;
+}
+.table9 th{
+	background-color: #cdcdcd;
+	border-radius: 0px !important;
+	font-size: 14px;
+}
+.table9 .td{
+	font-size:12px;
+}
+
+/* 按钮样式 */
+/*充值*/
+.recharge{
+	display: block;
+	height: 29px;  /*高*/
+	width: 59px;  /*宽*/
+	background-color: #09c;   /*背景色（非纯蓝色）*/
+	color:#fff;   /*字体颜色*/
+	text-decoration: none;  
+	font-size: 12px;  /*字号*/
+	line-height: 29px;   /*垂直居中（此参数与高度一致）*/
+	text-align: center;  /*居中*/
+	border:0px solid #251a4a;  /*边框宽度及颜色*/
+	margin-bottom: 10px;  /* 使用的时候去掉这句*/
+	
+	margin-top: 10px;  /* 使用的时候去掉这句*/
+}
+.recharge:hover{
+	background-color:#28b5d6;
+}
+
+
+/*全部*/
+.all{
+	display: block;
+	height: 29px;  /*高*/
+	width: 59px;  /*宽*/
+	background-color: #cdcdcd;   /*背景色（非纯蓝色）*/
+	color:#fff;   /*字体颜色*/
+	text-decoration: none;  
+	font-size: 12px;  /*字号*/
+	line-height: 29px;   /*垂直居中（此参数与高度一致）*/
+	text-align: center;  /*居中*/
+	border:0px solid #251a4a;  /*边框宽度及颜色*/
+	margin-bottom: 10px;  /* 使用的时候去掉这句*/
+	
+	margin-top: 10px;  /* 使用的时候去掉这句*/
+}
+.all:hover {
+    background-color: #28b5d6;
+    border: 1px solid #28b5d6;
+    color: #ffffff;
+}
+.all:focus {
+    background-color: #28b5d6;
+    border: 1px solid #28b5d6;
+    color: #ffffff;
+}
+/*取消*/
+.cancel{
+	display: block;
+	height: 29px;  /*高*/
+	width: 59px;  /*宽*/
+	background-color: #fff;   /*背景色（非纯蓝色）*/
+	color:#000;   /*字体颜色*/
+	text-decoration: none;  
+	font-size: 12px;  /*字号*/
+	line-height: 29px;   /*垂直居中（此参数与高度一致）*/
+	text-align: center;  /*居中*/
+	border:1px solid #ddd;  /*边框宽度及颜色*/
+	margin-bottom: 10px;  /* 使用的时候去掉这句*/
+	
+	margin-top: 10px;  /* 使用的时候去掉这句*/
+}
+.cancel:focus {
+    background-color: #546478;
+    border: 1px solid #546478;
+    color: #ffffff;
+}
+.cancel:hover {
+    background-color: #28b5d6;
+    border: 1px solid #28b5d6;
+    color: #ffffff;
+}
+/*搜索*/
+.searchbtt{
+	display: block;
+	height: 29px;  /*高*/
+	width: 59px;  /*宽*/
+	background-color: #09c;   /*背景色（非纯蓝色）*/
+	color:#fff;   /*字体颜色*/
+	text-decoration: none;  
+	font-size: 12px;  /*字号*/
+	line-height: 29px;   /*垂直居中（此参数与高度一致）*/
+	text-align: center;  /*居中*/
+	border:1px solid #ddd;  /*边框宽度及颜色*/
+	margin-bottom: 10px;  /* 使用的时候去掉这句*/
+	margin-top: 10px;  /* 使用的时候去掉这句*/
+}
+.search:focus {
+    background-color: #546478;
+    border: 1px solid #546478;
+    color: #ffffff;
+}
+.searchbtt:hover {
+    background-color: #28b5d6;
+    border: 1px solid #28b5d6;
+    color: #ffffff;
+}
+
+.float_left{
+	float:left;
+}
+.float_right{
+	float:right;
+}
+.margin_right{
+	margin-right:20px;
+}
+.ui-word{
+	text-align: right;
+}
+.top-button{
+	margin:auto;
+	width:100%;
+}
+.input-search{
+	display: block;
+	margin-top:11px;
+	height: 29px;  /*高*/
+	width:30%;
+}

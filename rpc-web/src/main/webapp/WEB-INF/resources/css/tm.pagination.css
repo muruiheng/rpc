@@ -6,3 +6,10 @@
 .page-list .page-total input, .page-list .page-total select{height: 26px; border: 1px solid #ddd;}
 .page-list .page-total input {width: 40px; padding-left:3px;}
 .page-list .page-total select {width: 50px;}
+.page-list>.pagination>li>span{
+	margin:0 5px !important;
+	border:1px solid #ddd !important;
+	border-radius:0px !important; 
+	
+}
+.pagination > .disabled > span{display:none !important;}
