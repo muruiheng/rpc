@@ -1,7 +1,7 @@
 package rpc.server;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
@@ -25,7 +25,7 @@ import rpc.server.handler.RpcHttpHandler;
 public class HttpServer extends AbstractServer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HttpServer.class);
-	protected static final Map<String, Object> handlerMap = new HashMap<String, Object>();
+	protected static final Map<String, Object> handlerMap = new ConcurrentHashMap<String, Object>();
 	
 	private class ChannelStartRunner implements Runnable {
 
@@ -71,7 +71,8 @@ public class HttpServer extends AbstractServer {
 
 	@Override
 	protected void startServer() {
-		new ChannelStartRunner().run();
+		Thread thread = new Thread(new ChannelStartRunner());
+		thread.start();
 	}
 
 

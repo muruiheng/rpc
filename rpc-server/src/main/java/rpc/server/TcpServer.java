@@ -1,7 +1,7 @@
 package rpc.server;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
@@ -22,6 +22,7 @@ import rpc.common.RpcDecoder;
 import rpc.common.RpcEncoder;
 import rpc.common.RpcRequest;
 import rpc.common.RpcResponse;
+import rpc.common.annotation.RpcService;
 import rpc.common.annotation.TcpService;
 import rpc.server.handler.RpcHandler;
 
@@ -35,7 +36,8 @@ import rpc.server.handler.RpcHandler;
 public class TcpServer extends AbstractServer {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(TcpServer.class);
-	protected static final Map<String, Object> handlerMap = new HashMap<String, Object>();
+	protected static final Map<String, Object> handlerMap = new ConcurrentHashMap<String, Object>();
+	
 	private class ChannelStartRunner implements Runnable {
 
 		@Override
@@ -81,9 +83,13 @@ public class TcpServer extends AbstractServer {
 	@Override
 	protected void initalHandlerMap(ApplicationContext ctx) {
 		LOGGER.info("RpcServer.setApplicationContext() -- to set ApplicationContext for RPC SERVER");
-		Map<String, Object> serviceBeanMap = ctx.getBeansWithAnnotation(TcpService.class); // get the tcp serice in spring context
-		if (MapUtils.isNotEmpty(serviceBeanMap) && serviceBeanMap.values() != null) {
-			for (Object serviceBean : serviceBeanMap.values()) {
+		Map<String, Object> tcpServices = ctx.getBeansWithAnnotation(TcpService.class); // get the tcp serice in spring context
+		Map<String, Object> rpcServices = ctx.getBeansWithAnnotation(RpcService.class); 
+		if (rpcServices != null && !rpcServices.isEmpty()) 
+			tcpServices.putAll(tcpServices);
+		
+		if (MapUtils.isNotEmpty(tcpServices) && tcpServices.values() != null) {
+			for (Object serviceBean : tcpServices.values()) {
 				String interfaceName = serviceBean.getClass().getAnnotation(TcpService.class).value().getName();
 				LOGGER.info("interfaceName = " + interfaceName);
 				handlerMap.put(interfaceName, serviceBean);
@@ -97,8 +103,8 @@ public class TcpServer extends AbstractServer {
 
 	@Override
 	protected void startServer() {
-		Runnable runner = new ChannelStartRunner();
-		new Thread(runner).start();
+		Thread thread = new Thread(new ChannelStartRunner());
+		thread.start();
 	}
 
 	@Override
