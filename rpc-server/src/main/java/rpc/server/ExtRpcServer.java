@@ -121,6 +121,7 @@ public class ExtRpcServer implements ApplicationContextAware, InitializingBean {
 			LOGGER.debug(server.getClass().getName() + " started!");
 		}
 	}
+	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		
